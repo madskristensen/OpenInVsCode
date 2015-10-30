@@ -6,7 +6,7 @@ Visual Studio Code.
 [![Build status](https://ci.appveyor.com/api/projects/status/hdd4uqjdqpq0f6lf?svg=true)](https://ci.appveyor.com/project/madskristensen/openinvscode)
 
 Download the extension at the
-[VS Gallery](https://visualstudiogallery.msdn.microsoft.com/de706ad0-8a73-4df3-bef5-867bb9a70d51)
+[VS Gallery](https://visualstudiogallery.msdn.microsoft.com/33f6f3fd-68e8-4783-b934-ece91a08d265)
 or get the
 [nightly build](http://vsixgallery.com/extension/e99dde0e-e023-410d-bc5d-3f76db71e3f0/)
 
