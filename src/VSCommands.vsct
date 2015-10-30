@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <Extern href="stdidcmd.h"/>
+    <Extern href="vsshlids.h"/>
+    <Include href="KnownImageIds.vsct"/>
+
+    <Commands package="guidPackage">
+        <Buttons>
+            <Button guid="guidOpenInVsCmdSet" id="OpenInVs" priority="0x0500" type="Button">
+                <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_PROJECT_EXPLORE"/>
+                <Icon guid="ImageCatalogGuid" id="VisualStudioOnline" />
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <Strings>
+                    <ButtonText>Open in Visual Studio Code</ButtonText>
+                </Strings>
+            </Button>
+        </Buttons>
+    </Commands>
+
+    <CommandPlacements>
+        <CommandPlacement guid="guidOpenInVsCmdSet" id="OpenInVs" priority="0x0500">
+            <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_SOLUTION_EXPLORE"/>
+        </CommandPlacement>
+    </CommandPlacements>
+
+    <Symbols>
+        <!-- This is the package guid. -->
+        <GuidSymbol name="guidPackage" value="{0a3cf9fa-2fe6-42dc-97df-a0f224cf5854}" />
+
+        <GuidSymbol name="guidOpenInVsCmdSet" value="{cad3eff2-bd57-4dd4-9104-7b032daeba54}">
+            <IDSymbol name="OpenInVs" value="0x0100" />
+        </GuidSymbol>
+    </Symbols>
+</CommandTable>
