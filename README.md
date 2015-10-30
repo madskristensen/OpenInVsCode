@@ -3,7 +3,7 @@ A Visual Studio extension that adds a menu command that
 lets you open any solution, project or folder in
 Visual Studio Code.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/3x24c3gbyv2g34l8?svg=true)](https://ci.appveyor.com/project/madskristensen/brunchtaskrunner)
+[![Build status](https://ci.appveyor.com/api/projects/status/hdd4uqjdqpq0f6lf?svg=true)](https://ci.appveyor.com/project/madskristensen/openinvscode)
 
 Download the extension at the
 [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/de706ad0-8a73-4df3-bef5-867bb9a70d51)
