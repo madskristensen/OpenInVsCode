@@ -7,7 +7,7 @@ namespace OpenInVsCode
 {
     internal static class ProjectHelpers
     {
-        public static string GetSelectedFolder(DTE2 dte)
+        public static string GetSelectedPath(DTE2 dte)
         {
             var items = (Array)dte.ToolWindows.SolutionExplorer.SelectedItems;
 

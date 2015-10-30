@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.IO;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -38,15 +39,17 @@ namespace OpenInVsCode
         private void OpenFolderInVs(object sender, EventArgs e)
         {
             var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
-            string folder = ProjectHelpers.GetSelectedFolder(dte);
+            string path = ProjectHelpers.GetSelectedPath(dte);
 
-            if (!string.IsNullOrEmpty(folder))
+            if (!string.IsNullOrEmpty(path))
             {
+                bool isDirectory = Directory.Exists(path);
+
                 var start = new System.Diagnostics.ProcessStartInfo()
                 {
-                    WorkingDirectory = folder,
+                    WorkingDirectory = path,
                     FileName = "code",
-                    Arguments = ".",
+                    Arguments = isDirectory ? "." : $"\"{path}\"",
                     CreateNoWindow = true,
                     WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
                 };

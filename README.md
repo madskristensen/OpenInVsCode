@@ -1,6 +1,6 @@
 ## Open in Visual Studio Code
 A Visual Studio extension that adds a menu command that
-lets you open any solution, project or folder in
+lets you open any solution, project, folder or file in
 Visual Studio Code.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/hdd4uqjdqpq0f6lf?svg=true)](https://ci.appveyor.com/project/madskristensen/openinvscode)
@@ -25,8 +25,8 @@ You can
 for free.
 
 ### Solution Explorer
-You can open any solution, project or folder in Visual
-Studio Code by simply right-clicking it in Solution
+You can open any solution, project, folder or file in
+Visual Studio Code by simply right-clicking it in Solution
 Explorer and select
 **Open in Visual Studio Code**.
 

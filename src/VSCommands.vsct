@@ -8,7 +8,7 @@
     <Commands package="guidPackage">
         <Buttons>
             <Button guid="guidOpenInVsCmdSet" id="OpenInVs" priority="0x0500" type="Button">
-                <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_PROJECT_EXPLORE"/>
+                <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_FOLDER_EXPLORE" />
                 <Icon guid="ImageCatalogGuid" id="VisualStudioOnline" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <Strings>
@@ -21,6 +21,12 @@
     <CommandPlacements>
         <CommandPlacement guid="guidOpenInVsCmdSet" id="OpenInVs" priority="0x0500">
             <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_SOLUTION_EXPLORE"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidOpenInVsCmdSet" id="OpenInVs" priority="0x0500">
+            <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_PROJECT_EXPLORE"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidOpenInVsCmdSet" id="OpenInVs" priority="0x0500">
+            <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_ITEM_OPEN"/>
         </CommandPlacement>
     </CommandPlacements>
 
