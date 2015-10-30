@@ -26,7 +26,8 @@ for free.
 
 ### Solution Explorer
 You can open any solution, project or folder in Visual
-Studio Code by simply right-clicking it and select
+Studio Code by simply right-clicking it in Solution
+Explorer and select
 **Open in Visual Studio Code**.
 
 ![Context menu](art/context-menu.png)
