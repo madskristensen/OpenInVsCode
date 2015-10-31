@@ -39,27 +39,40 @@ namespace OpenInVsCode
         private void OpenFolderInVs(object sender, EventArgs e)
         {
             var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
-            string path = ProjectHelpers.GetSelectedPath(dte);
 
-            if (!string.IsNullOrEmpty(path))
+            try
             {
-                bool isDirectory = Directory.Exists(path);
+                string path = ProjectHelpers.GetSelectedPath(dte);
 
-                var start = new System.Diagnostics.ProcessStartInfo()
+                if (!string.IsNullOrEmpty(path))
                 {
-                    WorkingDirectory = path,
-                    FileName = "code",
-                    Arguments = isDirectory ? "." : $"\"{path}\"",
-                    CreateNoWindow = true,
-                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
-                };
-
-                System.Diagnostics.Process.Start(start);
+                    OpenVsCode(path);
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Couldn't resolve the folder");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Couldn't resolve the folder");
+                Logger.Log(ex);
             }
+        }
+
+        private static void OpenVsCode(string path)
+        {
+            bool isDirectory = Directory.Exists(path);
+
+            var start = new System.Diagnostics.ProcessStartInfo()
+            {
+                WorkingDirectory = path,
+                FileName = "code",
+                Arguments = isDirectory ? "." : $"\"{path}\"",
+                CreateNoWindow = true,
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+            };
+
+            System.Diagnostics.Process.Start(start);
         }
     }
 }

@@ -45,6 +45,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\Telemetry.cs" />
     <Compile Include="OpenFolderCommand.cs" />
     <Compile Include="Helpers\ProjectHelpers.cs" />
