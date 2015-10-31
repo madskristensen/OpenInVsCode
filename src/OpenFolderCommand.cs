@@ -73,6 +73,7 @@ namespace OpenInVsCode
             };
 
             System.Diagnostics.Process.Start(start);
+            Telemetry.TrackEvent("Open in VS Code");
         }
     }
 }
