@@ -72,8 +72,8 @@ namespace OpenInVsCode
                 WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
             };
 
-            System.Diagnostics.Process.Start(start);
-            Telemetry.TrackEvent("Open in VS Code");
+            using (System.Diagnostics.Process.Start(start))
+                Telemetry.TrackEvent("Open in VS Code");
         }
     }
 }
