@@ -3,10 +3,11 @@
     <Metadata>
         <Identity Id="e99dde0e-e023-410d-bc5d-3f76db71e3f0" Version="1.1" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Open in Visual Studio Code</DisplayName>
-        <Description xml:space="preserve">Adds a menu command that lets you open any solution, project or folder in Visual Studio Code.</Description>
+        <Description xml:space="preserve">Adds a menu command that lets you open any solution, project, folder and file in Visual Studio Code.</Description>
         <License>Resources\LICENSE</License>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Preview.png</PreviewImage>
+        <Tags>vscode, code</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
