@@ -17,7 +17,7 @@ namespace OpenInVsCode
         {
             Logger.Initialize(this, Title);
             Telemetry.Initialize(this, Version, "939ca576-9e8b-474a-a9d7-92117432e5d6");
-            OpenFolderCommand.Initialize(this);
+            OpenVsCodeCommand.Initialize(this);
 
             base.Initialize();
         }

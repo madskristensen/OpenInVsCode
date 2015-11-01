@@ -7,11 +7,11 @@ using Microsoft.VisualStudio.Shell;
 
 namespace OpenInVsCode
 {
-    internal sealed class OpenFolderCommand
+    internal sealed class OpenVsCodeCommand
     {
         private readonly Package _package;
 
-        private OpenFolderCommand(Package package)
+        private OpenVsCodeCommand(Package package)
         {
             _package = package;
 
@@ -24,7 +24,7 @@ namespace OpenInVsCode
             }
         }
 
-        public static OpenFolderCommand Instance { get; private set; }
+        public static OpenVsCodeCommand Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
         {
@@ -33,7 +33,7 @@ namespace OpenInVsCode
 
         public static void Initialize(Package package)
         {
-            Instance = new OpenFolderCommand(package);
+            Instance = new OpenVsCodeCommand(package);
         }
 
         private void OpenFolderInVs(object sender, EventArgs e)
