@@ -73,7 +73,10 @@ namespace OpenInVsCode
             };
 
             using (System.Diagnostics.Process.Start(start))
-                Telemetry.TrackEvent("Open in VS Code");
+            {
+                string evt = isDirectory ? "directory" : "file";
+                Telemetry.TrackEvent($"Open {evt}");
+            }
         }
     }
 }
