@@ -1,4 +1,4 @@
-## Open in Visual Studio Code
+# Open in Visual Studio Code
 A Visual Studio extension that adds a menu command that
 lets you open any solution, project, folder or file in
 Visual Studio Code.
@@ -16,7 +16,7 @@ This extension is for those times where you have a project
 open in Visual Studio and you want to be able to quickly
 open it in Visual Studio Code.
 
-### Prerequisite
+## Prerequisite
 In order to use this extension, you must have Visual
 Studio 2015 as well as Visual Studio Code installed.
 
@@ -24,10 +24,13 @@ You can
 [download Visual Studio Code](https://code.visualstudio.com/)
 for free.
 
-### Solution Explorer
+## Solution Explorer
 You can open any solution, project, folder or file in
 Visual Studio Code by simply right-clicking it in Solution
 Explorer and select
 **Open in Visual Studio Code**.
 
 ![Context menu](art/context-menu.png)
+
+## License
+[Apache 2.0](LICENSE)
