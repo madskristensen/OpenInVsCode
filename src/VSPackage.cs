@@ -5,18 +5,16 @@ using Microsoft.VisualStudio.Shell;
 namespace OpenInVsCode
 {
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", Version, IconResourceID = 400)]
+    [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuids.guidPackageString)]
     public sealed class VSPackage : Package
     {
-        public const string Version = "1.0";
-        public const string Title = "Open in Visual Studio Code";
 
         protected override void Initialize()
         {
-            Logger.Initialize(this, Title);
-            Telemetry.Initialize(this, Version, "939ca576-9e8b-474a-a9d7-92117432e5d6");
+            Logger.Initialize(this, Vsix.Name);
+            Telemetry.Initialize(this, Vsix.Version, "939ca576-9e8b-474a-a9d7-92117432e5d6");
             OpenVsCodeCommand.Initialize(this);
 
             base.Initialize();
