@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="e99dde0e-e023-410d-bc5d-3f76db71e3f0" Version="1.1" Language="en-US" Publisher="Mads Kristensen" />
+        <Identity Id="e99dde0e-e023-410d-bc5d-3f76db71e3f0" Version="1.2" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Open in Visual Studio Code</DisplayName>
         <Description xml:space="preserve">Adds a menu command that lets you open any solution, project, folder and file in Visual Studio Code.</Description>
         <MoreInfo>https://github.com/madskristensen/OpenInVsCode/</MoreInfo>
