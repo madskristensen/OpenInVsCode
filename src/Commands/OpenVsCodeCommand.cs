@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.IO;
+using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -50,7 +51,7 @@ namespace OpenInVsCode
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("Couldn't resolve the folder");
+                    MessageBox.Show("Couldn't resolve the folder");
                 }
             }
             catch (Exception ex)
@@ -61,14 +62,17 @@ namespace OpenInVsCode
 
         private static void OpenVsCode(string path)
         {
+            EnsurePathExist();
             bool isDirectory = Directory.Exists(path);
+            string cwd = File.Exists(path) ? Path.GetDirectoryName(path) : path;
 
             var start = new System.Diagnostics.ProcessStartInfo()
             {
-                WorkingDirectory = path,
-                FileName = "code",
+                WorkingDirectory = cwd,
+                FileName = VSPackage.Options.PathToExe,
                 Arguments = isDirectory ? "." : $"\"{path}\"",
                 CreateNoWindow = true,
+                UseShellExecute = false,
                 WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
             };
 
@@ -76,6 +80,31 @@ namespace OpenInVsCode
             {
                 string evt = isDirectory ? "directory" : "file";
                 Telemetry.TrackEvent($"Open {evt}");
+            }
+        }
+
+        private static void EnsurePathExist()
+        {
+            if (File.Exists(VSPackage.Options.PathToExe))
+                return;
+
+            var box = MessageBox.Show("I can't find Visual Studio Code (Code.exe). Would you like to help me find it?", Vsix.Name, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (box == DialogResult.No)
+                return;
+
+            var dialog = new OpenFileDialog();
+            dialog.DefaultExt = ".exe";
+            dialog.FileName = "Code.exe";
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            dialog.CheckFileExists = true;
+
+            var result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                VSPackage.Options.PathToExe = dialog.FileName;
+                VSPackage.Options.SaveSettingsToStorage();
             }
         }
     }

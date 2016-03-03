@@ -32,5 +32,14 @@ Explorer and select
 
 ![Context menu](art/context-menu.png)
 
+## Path to Code.exe
+If you installed Visual Studio Code at a non-default location,
+a prompt will ask for the path to _Code.exe_.
+
+You can always change the location in
+**Tools -> Options -> Web -> Open In Visual Studio Code**.
+
+![Options](art/options.png)
+
 ## License
 [Apache 2.0](LICENSE)

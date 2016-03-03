@@ -64,6 +64,9 @@
     <Compile Include="Helpers\Telemetry.cs" />
     <Compile Include="Commands\OpenVsCodeCommand.cs" />
     <Compile Include="Helpers\ProjectHelpers.cs" />
+    <Compile Include="Options.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
