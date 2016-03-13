@@ -16,7 +16,7 @@ namespace OpenInVsCode
                 ProjectItem item = selItem.Object as ProjectItem;
 
                 if (item != null)
-                    return item.Properties.Item("FullPath").Value.ToString();
+                    return item.GetFilePath();
 
                 Project proj = selItem.Object as Project;
 
@@ -30,6 +30,11 @@ namespace OpenInVsCode
             }
 
             return null;
+        }
+
+        public static string GetFilePath(this ProjectItem item)
+        {
+            return item.FileNames[1]; // Indexing starts from 1
         }
 
         public static string GetRootFolder(this Project project)
