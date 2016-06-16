@@ -79,7 +79,6 @@ namespace OpenInVsCode
             using (System.Diagnostics.Process.Start(start))
             {
                 string evt = isDirectory ? "directory" : "file";
-                Telemetry.TrackEvent($"Open {evt}");
             }
         }
 

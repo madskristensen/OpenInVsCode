@@ -18,8 +18,6 @@ namespace OpenInVsCode
             Options = (Options)GetDialogPage(typeof(Options));
 
             Logger.Initialize(this, Vsix.Name);
-            Telemetry.Initialize(this, Vsix.Version, "939ca576-9e8b-474a-a9d7-92117432e5d6");
-
             OpenVsCodeCommand.Initialize(this);
 
             base.Initialize();

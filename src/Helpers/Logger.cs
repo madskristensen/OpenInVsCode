@@ -28,9 +28,9 @@ public static class Logger
                 pane.OutputString(DateTime.Now.ToString() + ": " + message + Environment.NewLine);
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Do nothing
+            System.Diagnostics.Debug.WriteLine(ex);
         }
     }
 
@@ -39,7 +39,6 @@ public static class Logger
         if (ex != null)
         {
             Log(ex.ToString());
-            Telemetry.TrackException(ex);
         }
     }
 
