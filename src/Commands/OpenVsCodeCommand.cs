@@ -11,12 +11,15 @@ namespace OpenInVsCode
     internal sealed class OpenVsCodeCommand
     {
         private readonly Package _package;
+        private Options _options;
 
-        private OpenVsCodeCommand(Package package)
+        private OpenVsCodeCommand(Package package, Options options)
         {
             _package = package;
+            _options = options;
 
-            OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            var commandService = (OleMenuCommandService)ServiceProvider.GetService(typeof(IMenuCommandService));
+
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(PackageGuids.guidOpenInVsCmdSet, PackageIds.OpenInVs);
@@ -32,17 +35,16 @@ namespace OpenInVsCode
             get { return _package; }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(Package package, Options options)
         {
-            Instance = new OpenVsCodeCommand(package);
+            Instance = new OpenVsCodeCommand(package, options);
         }
 
         private void OpenFolderInVs(object sender, EventArgs e)
         {
-            var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
-
             try
             {
+                var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
                 string path = ProjectHelpers.GetSelectedPath(dte);
 
                 if (!string.IsNullOrEmpty(path))
@@ -60,7 +62,7 @@ namespace OpenInVsCode
             }
         }
 
-        private static void OpenVsCode(string path)
+        private void OpenVsCode(string path)
         {
             EnsurePathExist();
             bool isDirectory = Directory.Exists(path);
@@ -69,7 +71,7 @@ namespace OpenInVsCode
             var start = new System.Diagnostics.ProcessStartInfo()
             {
                 WorkingDirectory = cwd,
-                FileName = VSPackage.Options.PathToExe,
+                FileName = _options.PathToExe,
                 Arguments = isDirectory ? "." : $"\"{path}\"",
                 CreateNoWindow = true,
                 UseShellExecute = false,
@@ -82,9 +84,9 @@ namespace OpenInVsCode
             }
         }
 
-        private static void EnsurePathExist()
+        private void EnsurePathExist()
         {
-            if (File.Exists(VSPackage.Options.PathToExe))
+            if (File.Exists(_options.PathToExe))
                 return;
 
             var box = MessageBox.Show("I can't find Visual Studio Code (Code.exe). Would you like to help me find it?", Vsix.Name, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -102,8 +104,8 @@ namespace OpenInVsCode
 
             if (result == DialogResult.OK)
             {
-                VSPackage.Options.PathToExe = dialog.FileName;
-                VSPackage.Options.SaveSettingsToStorage();
+                _options.PathToExe = dialog.FileName;
+                _options.SaveSettingsToStorage();
             }
         }
     }
