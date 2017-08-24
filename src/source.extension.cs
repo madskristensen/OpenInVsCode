@@ -11,7 +11,7 @@ namespace OpenInVsCode
         public const string Name = "Open in Visual Studio Code";
         public const string Description = @"Adds a menu command that lets you open any solution, project, folder and file in Visual Studio Code.";
         public const string Language = "en-US";
-        public const string Version = "1.3";
+        public const string Version = "1.4";
         public const string Author = "Mads Kristensen";
         public const string Tags = "vscode, code";
     }
