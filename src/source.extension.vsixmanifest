@@ -7,7 +7,7 @@
         <MoreInfo>https://github.com/madskristensen/OpenInVsCode/</MoreInfo>
         <License>Resources\LICENSE</License>
         <Icon>Resources\Icon.png</Icon>
-        <PreviewImage>Resources\Preview.png</PreviewImage>
+        <PreviewImage>Resources\Icon.png</PreviewImage>
         <Tags>vscode, code</Tags>
     </Metadata>
     <Installation>
