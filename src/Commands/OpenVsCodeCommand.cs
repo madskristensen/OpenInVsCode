@@ -66,13 +66,11 @@ namespace OpenInVsCode
         {
             EnsurePathExist();
             bool isDirectory = Directory.Exists(path);
-            string cwd = File.Exists(path) ? Path.GetDirectoryName(path) : path;
 
             var start = new System.Diagnostics.ProcessStartInfo()
             {
-                WorkingDirectory = cwd,
                 FileName = _options.PathToExe,
-                Arguments = isDirectory ? "." : $"\"{path}\"",
+                Arguments = isDirectory ? "." : $"{path}",
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
