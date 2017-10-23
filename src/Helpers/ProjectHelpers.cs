@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 
@@ -10,13 +12,14 @@ namespace OpenInVsCode
         public static string GetSelectedPath(DTE2 dte)
         {
             var items = (Array)dte.ToolWindows.SolutionExplorer.SelectedItems;
+            var files = new List<string>();
 
             foreach (UIHierarchyItem selItem in items)
             {
                 ProjectItem item = selItem.Object as ProjectItem;
 
                 if (item != null)
-                    return item.GetFilePath();
+                    files.Add(item.GetFilePath());
 
                 Project proj = selItem.Object as Project;
 
@@ -29,12 +32,12 @@ namespace OpenInVsCode
                     return Path.GetDirectoryName(sol.FileName);
             }
 
-            return null;
+            return files.Count > 0 ? String.Join(" ", files) : null;
         }
 
         public static string GetFilePath(this ProjectItem item)
         {
-            return item.FileNames[1]; // Indexing starts from 1
+            return $"\"{item.FileNames[1]}\""; // Indexing starts from 1
         }
 
         public static string GetRootFolder(this Project project)
