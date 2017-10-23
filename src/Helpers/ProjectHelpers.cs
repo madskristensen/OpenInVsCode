@@ -9,7 +9,7 @@ namespace OpenInVsCode
 {
     internal static class ProjectHelpers
     {
-        public static string GetSelectedPath(DTE2 dte)
+        public static string GetSelectedPath(DTE2 dte, bool openSolutionProjectAsRegularFile)
         {
             var items = (Array)dte.ToolWindows.SolutionExplorer.SelectedItems;
             var files = new List<string>();
@@ -24,12 +24,12 @@ namespace OpenInVsCode
                 Project proj = selItem.Object as Project;
 
                 if (proj != null)
-                    return proj.GetRootFolder();
+                    return openSolutionProjectAsRegularFile ? $"\"{proj.FileName}\"" : proj.GetRootFolder();
 
                 Solution sol = selItem.Object as Solution;
 
                 if (sol != null)
-                    return Path.GetDirectoryName(sol.FileName);
+                    return openSolutionProjectAsRegularFile ? $"\"{sol.FullName}\"" : Path.GetDirectoryName(sol.FileName);
             }
 
             return files.Count > 0 ? String.Join(" ", files) : null;

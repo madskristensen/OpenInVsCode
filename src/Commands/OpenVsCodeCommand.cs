@@ -45,7 +45,7 @@ namespace OpenInVsCode
             try
             {
                 var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
-                string path = ProjectHelpers.GetSelectedPath(dte);
+                string path = ProjectHelpers.GetSelectedPath(dte,_options.OpenSolutionProjectAsRegularFile);
 
                 if (!string.IsNullOrEmpty(path))
                 {
@@ -69,7 +69,7 @@ namespace OpenInVsCode
 
             var start = new System.Diagnostics.ProcessStartInfo()
             {
-                FileName = _options.PathToExe,
+                FileName = $"\"{_options.PathToExe}\"",
                 Arguments = isDirectory ? "." : $"{path}",
                 CreateNoWindow = true,
                 UseShellExecute = false,

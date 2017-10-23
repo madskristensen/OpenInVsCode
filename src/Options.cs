@@ -16,6 +16,11 @@ namespace OpenInVsCode
         [DefaultValue(_pathToExe)]
         public string PathToExe { get; set; } = _pathToExe;
 
+        [Category("General")]
+        [DisplayName("Open solution/project as regular file")]
+        [Description("When true, opens solutions/projects as regular files and does not load folder path into VS Code.")]
+        public bool OpenSolutionProjectAsRegularFile { get; set; }
+
         public Options()
         {
             CheckFor64Bit();
