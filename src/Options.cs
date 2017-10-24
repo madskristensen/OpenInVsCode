@@ -11,6 +11,11 @@ namespace OpenInVsCode
         const string _pathToExe64 = @"C:\Program Files\Microsoft VS Code\Code.exe";
 
         [Category("General")]
+        [DisplayName("Command line arguments")]
+        [Description("Command line arguments to pass to code.exe")]
+        public string CommandLineArguments { get; set; }
+
+        [Category("General")]
         [DisplayName("Path to code.exe")]
         [Description("Specify the path to code.exe.")]
         [DefaultValue(_pathToExe)]

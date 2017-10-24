@@ -45,7 +45,7 @@ namespace OpenInVsCode
             try
             {
                 var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
-                string path = ProjectHelpers.GetSelectedPath(dte,_options.OpenSolutionProjectAsRegularFile);
+                string path = ProjectHelpers.GetSelectedPath(dte, _options.OpenSolutionProjectAsRegularFile);
 
                 if (!string.IsNullOrEmpty(path))
                 {
@@ -67,10 +67,16 @@ namespace OpenInVsCode
             EnsurePathExist();
             bool isDirectory = Directory.Exists(path);
 
+            var args = isDirectory ? "." : $"{path}";
+            if (!string.IsNullOrEmpty(_options.CommandLineArguments))
+            {
+                args = $"{args} {_options.CommandLineArguments}";
+            }
+
             var start = new System.Diagnostics.ProcessStartInfo()
             {
                 FileName = $"\"{_options.PathToExe}\"",
-                Arguments = isDirectory ? "." : $"{path}",
+                Arguments = args,
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
