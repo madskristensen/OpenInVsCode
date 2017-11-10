@@ -18,7 +18,7 @@ open it in Visual Studio Code.
 
 ## Prerequisite
 In order to use this extension, you must have Visual
-Studio 2015 as well as Visual Studio Code installed.
+Studio 2015/2017 as well as Visual Studio Code installed.
 
 You can
 [download Visual Studio Code](https://code.visualstudio.com/)
