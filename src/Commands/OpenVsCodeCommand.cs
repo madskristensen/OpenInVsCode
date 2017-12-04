@@ -49,7 +49,15 @@ namespace OpenInVsCode
 
                 if (!string.IsNullOrEmpty(path))
                 {
-                    OpenVsCode(path);
+                    int line = 0;
+
+                    TextSelection selection = dte.ActiveDocument.Selection as TextSelection;
+                    if (selection != null)
+                    {
+                        line = selection.ActivePoint.Line;
+                    }
+
+                    OpenVsCode(path,line);
                 }
                 else
                 {
@@ -62,12 +70,12 @@ namespace OpenInVsCode
             }
         }
 
-        private void OpenVsCode(string path)
+        private void OpenVsCode(string path, int line = 0)
         {
             EnsurePathExist();
             bool isDirectory = Directory.Exists(path);
 
-            var args = isDirectory ? "." : $"{path}";
+            var args = isDirectory ? "." : line > 0 ? $"-g {path}:{line}" : $"{path}";
             if (!string.IsNullOrEmpty(_options.CommandLineArguments))
             {
                 args = $"{args} {_options.CommandLineArguments}";
