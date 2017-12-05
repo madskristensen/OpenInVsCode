@@ -51,7 +51,7 @@ namespace OpenInVsCode
                 {
                     int line = 0;
 
-                    TextSelection selection = dte.ActiveDocument.Selection as TextSelection;
+                    TextSelection selection = dte.ActiveDocument?.Selection as TextSelection;
                     if (selection != null)
                     {
                         line = selection.ActivePoint.Line;
