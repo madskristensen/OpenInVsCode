@@ -1,10 +1,10 @@
-﻿using System;
+﻿using EnvDTE;
+using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
+using System;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Windows.Forms;
-using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
 
 namespace OpenInVsCode
 {
@@ -51,13 +51,12 @@ namespace OpenInVsCode
                 {
                     int line = 0;
 
-                    TextSelection selection = dte.ActiveDocument?.Selection as TextSelection;
-                    if (selection != null)
+                    if (dte.ActiveDocument?.Selection is TextSelection selection)
                     {
                         line = selection.ActivePoint.Line;
                     }
 
-                    OpenVsCode(path,line);
+                    OpenVsCode(path, line);
                 }
                 else
                 {
@@ -87,12 +86,17 @@ namespace OpenInVsCode
                 Arguments = args,
                 CreateNoWindow = true,
                 UseShellExecute = false,
-                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
             };
+
+            if (isDirectory)
+            {
+                start.WorkingDirectory = path;
+            }
 
             using (System.Diagnostics.Process.Start(start))
             {
-                string evt = isDirectory ? "directory" : "file";
+
             }
         }
 
@@ -106,11 +110,13 @@ namespace OpenInVsCode
             if (box == DialogResult.No)
                 return;
 
-            var dialog = new OpenFileDialog();
-            dialog.DefaultExt = ".exe";
-            dialog.FileName = "Code.exe";
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            dialog.CheckFileExists = true;
+            var dialog = new OpenFileDialog
+            {
+                DefaultExt = ".exe",
+                FileName = "Code.exe",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                CheckFileExists = true
+            };
 
             var result = dialog.ShowDialog();
 
