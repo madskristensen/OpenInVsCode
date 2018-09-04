@@ -12,7 +12,7 @@
                 <Icon guid="ImageCatalogGuid" id="VisualStudioOnline" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <Strings>
-                    <ButtonText>Open in Visual Studio Code</ButtonText>
+                    <ButtonText>Open in Visual Studio &amp;Code</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
