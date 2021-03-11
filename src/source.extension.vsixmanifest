@@ -6,8 +6,8 @@
         <Description xml:space="preserve">Adds a menu command that lets you open any solution, project, folder and file in Visual Studio Code.</Description>
         <MoreInfo>https://github.com/madskristensen/OpenInVsCode/</MoreInfo>
         <License>Resources\LICENSE</License>
-        <Icon>source.extension.ico</Icon>
-        <PreviewImage>source.extension.ico</PreviewImage>
+        <Icon>Resources\Icon.png</Icon>
+        <PreviewImage>Resources\Icon.png</PreviewImage>
         <Tags>vscode, code</Tags>
     </Metadata>
     <Installation>
