@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace OpenInVsCode
 {
@@ -105,26 +106,116 @@ namespace OpenInVsCode
             if (File.Exists(_options.PathToExe))
                 return;
 
-            var box = MessageBox.Show("I can't find Visual Studio Code (Code.exe). Would you like to help me find it?", Vsix.Name, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (box == DialogResult.No)
-                return;
-
-            var dialog = new OpenFileDialog
+            if (!string.IsNullOrEmpty(VsCodeDetect.InRegistry()))
             {
-                DefaultExt = ".exe",
-                FileName = "Code.exe",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
-                CheckFileExists = true
-            };
-
-            var result = dialog.ShowDialog();
-
-            if (result == DialogResult.OK)
+                SaveOptions(_options, VsCodeDetect.InRegistry());
+            } 
+            else if (!string.IsNullOrEmpty(VsCodeDetect.InEnvVarPath()))
             {
-                _options.PathToExe = dialog.FileName;
-                _options.SaveSettingsToStorage();
+                SaveOptions(_options, VsCodeDetect.InEnvVarPath());
             }
+            else if (!string.IsNullOrEmpty(VsCodeDetect.InLocalAppData()))
+            {
+                SaveOptions(_options, VsCodeDetect.InLocalAppData());
+            }
+            else
+            {
+                var box = MessageBox.Show(
+                    "I can't find Visual Studio Code (Code.exe). Would you like to help me find it?", Vsix.Name,
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (box == DialogResult.No)
+                    return;
+
+                var dialog = new OpenFileDialog
+                {
+                    DefaultExt = ".exe",
+                    FileName = "Code.exe",
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                    CheckFileExists = true
+                };
+
+                var result = dialog.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    SaveOptions(_options, dialog.FileName);
+                }
+            }
+        }
+
+        private void SaveOptions(Options options, string path)
+        {
+            options.PathToExe = path;
+            options.SaveSettingsToStorage();
+        }
+
+    }
+
+    internal static class VsCodeDetect
+    {
+        internal static string InRegistry()
+        {
+            var key = Registry.CurrentUser;
+            var name = "Icon";
+            try
+            {
+                var subKey = key.OpenSubKey(@"SOFTWARE\Classes\*\shell\VSCode\");
+                var value = subKey.GetValue(name).ToString();
+                if (File.Exists(value))
+                {
+                    return value;
+                }
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        internal static string InLocalAppData()
+        {
+            var localAppData = Environment.GetEnvironmentVariable("LOCALAPPDATA");
+            
+            var codePartDir = @"Programs\Microsoft VS Code";
+            var codeDir = Path.Combine(localAppData, codePartDir);
+            var drives = DriveInfo.GetDrives();
+
+            foreach (var drive in drives)
+            {
+                if (drive.DriveType == DriveType.Fixed)
+                {
+                    var path = Path.Combine(drive.Name[0] + codeDir.Substring(1), "code.exe");
+                    if (File.Exists(path))
+                    {
+                        return path;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        internal static string InEnvVarPath()
+        {
+            var envPath = Environment.GetEnvironmentVariable("Path");
+            var paths = envPath.Split(';');
+            var parentDir = "Microsoft VS Code";
+            foreach (var path in paths)
+            {
+                if (path.ToLower().Contains("code"))
+                {
+                    var temp = Path.Combine(path.Substring(0, path.IndexOf(parentDir)),
+                        parentDir, "code.exe");
+                    if (File.Exists(temp))
+                    {
+                        return temp;
+                    }
+                }
+            }
+            return null;
         }
     }
 }
