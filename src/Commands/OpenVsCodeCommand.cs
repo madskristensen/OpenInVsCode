@@ -6,13 +6,14 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using Microsoft;
 
 namespace OpenInVsCode
 {
     internal sealed class OpenVsCodeCommand
     {
         private readonly Package _package;
-        private Options _options;
+        private readonly Options _options;
 
         private OpenVsCodeCommand(Package package, Options options)
         {
@@ -46,6 +47,8 @@ namespace OpenInVsCode
             try
             {
                 var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
+                Assumes.Present(dte);
+
                 string path = ProjectHelpers.GetSelectedPath(dte, _options.OpenSolutionProjectAsRegularFile);
 
                 if (!string.IsNullOrEmpty(path))

@@ -1,12 +1,13 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+
+using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 public static class Logger
 {
     private static IVsOutputWindowPane pane;
-    private static readonly object _syncRoot = new object();
     private static IServiceProvider _provider;
     private static string _name;
 
@@ -16,7 +17,6 @@ public static class Logger
         _name = name;
     }
 
-    [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Microsoft.VisualStudio.Shell.Interop.IVsOutputWindowPane.OutputString(System.String)")]
     public static void Log(string message)
     {
         if (string.IsNullOrEmpty(message))
@@ -49,6 +49,8 @@ public static class Logger
         {
             Guid guid = Guid.NewGuid();
             IVsOutputWindow output = (IVsOutputWindow)_provider.GetService(typeof(SVsOutputWindow));
+            Assumes.Present(output);
+
             output.CreatePane(ref guid, _name, 1, 1);
             output.GetPane(ref guid, out pane);
         }
