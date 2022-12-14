@@ -35,7 +35,10 @@ Explorer and select
 ## Open current file
 You can also open the current file in Visual Studio Code 
 by clicking onto **Extensions->Open in Visual Studio Code**.
-The default Key binding for that is `Ctrl+Shift+Y`.
+
+![grafik](https://user-images.githubusercontent.com/11379989/207499990-873f7d4a-4ca5-47b6-9264-7d39b33937b3.png)
+
+The default key binding is `Ctrl+Shift+Y`.
 
 
 ## Path to Code.exe
