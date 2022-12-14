@@ -27,6 +27,10 @@ namespace OpenInVsCode
                 var menuCommandID = new CommandID(PackageGuids.guidOpenInVsCmdSet, PackageIds.OpenInVs);
                 var menuItem = new MenuCommand(OpenFolderInVs, menuCommandID);
                 commandService.AddCommand(menuItem);
+
+                var currentCommandID = new CommandID(PackageGuids.guidOpenCurrentInVsCmdSet, PackageIds.OpenCurrentInVs);
+                var currentItem = new MenuCommand(OpenCurrentFileInVs, currentCommandID);
+                commandService.AddCommand(currentItem);
             }
         }
 
@@ -40,6 +44,46 @@ namespace OpenInVsCode
         public static void Initialize(Package package, Options options)
         {
             Instance = new OpenVsCodeCommand(package, options);
+        }
+
+        private void OpenCurrentFileInVs(object sender, EventArgs e)
+        {
+            try
+            {
+                var dte = (DTE2) ServiceProvider.GetService(typeof(DTE));
+                Assumes.Present(dte);
+
+                var activeDocument = dte.ActiveDocument;
+
+                if (activeDocument != null)
+                {
+                    var path = activeDocument.FullName;
+
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        int line = 0;
+
+                        if (activeDocument.Selection is TextSelection selection)
+                        {
+                            line = selection.ActivePoint.Line;
+                        }
+
+                        OpenVsCode(path, line);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Couldn't resolve the folder");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Couldn't find active document");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         private void OpenFolderInVs(object sender, EventArgs e)

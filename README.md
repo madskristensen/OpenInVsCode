@@ -32,6 +32,15 @@ Explorer and select
 
 ![Context menu](art/context-menu.png)
 
+## Open current file
+You can also open the current file in Visual Studio Code 
+by clicking onto **Extensions->Open in Visual Studio Code**.
+
+![grafik](https://user-images.githubusercontent.com/11379989/207499990-873f7d4a-4ca5-47b6-9264-7d39b33937b3.png)
+
+The default key binding is `Ctrl+Shift+Y`.
+
+
 ## Path to Code.exe
 If you installed Visual Studio Code at a non-default location,
 a prompt will ask for the path to _Code.exe_.
