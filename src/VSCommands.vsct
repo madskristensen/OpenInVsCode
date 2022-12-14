@@ -15,6 +15,14 @@
                     <ButtonText>Open in Visual Studio &amp;Code</ButtonText>
                 </Strings>
             </Button>
+            <Button guid="guidOpenCurrentInVsCmdSet" id="OpenCurrentInVs" priority="0x0500" type="Button">
+                <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_FILEEDITVIEW" />
+                <Icon guid="ImageCatalogGuid" id="VisualStudioOnline" />
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <Strings>
+                    <ButtonText>Open in Visual Studio &amp;Code</ButtonText>
+                </Strings>
+            </Button>
         </Buttons>
     </Commands>
 
@@ -30,12 +38,19 @@
         </CommandPlacement>
     </CommandPlacements>
 
+    <KeyBindings>
+        <KeyBinding guid="guidOpenCurrentInVsCmdSet" id="OpenCurrentInVs" editor="guidVSStd97" key1="Y" mod1="Control Shift"/>
+    </KeyBindings>
+
     <Symbols>
         <!-- This is the package guid. -->
         <GuidSymbol name="guidPackage" value="{0a3cf9fa-2fe6-42dc-97df-a0f224cf5854}" />
 
         <GuidSymbol name="guidOpenInVsCmdSet" value="{cad3eff2-bd57-4dd4-9104-7b032daeba54}">
             <IDSymbol name="OpenInVs" value="0x0100" />
+        </GuidSymbol>
+        <GuidSymbol name="guidOpenCurrentInVsCmdSet" value="{869c35cb-008b-4863-9e28-4c3123b073a7}">
+            <IDSymbol name="OpenCurrentInVs" value="0x0101" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>

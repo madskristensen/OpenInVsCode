@@ -17,6 +17,9 @@ namespace OpenInVsCode
 
         public const string guidOpenInVsCmdSetString = "cad3eff2-bd57-4dd4-9104-7b032daeba54";
         public static Guid guidOpenInVsCmdSet = new Guid(guidOpenInVsCmdSetString);
+
+        public const string guidOpenCurrentInVsCmdSetString = "869c35cb-008b-4863-9e28-4c3123b073a7";
+        public static Guid guidOpenCurrentInVsCmdSet = new Guid(guidOpenCurrentInVsCmdSetString);
     }
     /// <summary>
     /// Helper class that encapsulates all CommandIDs uses across VS Package.
@@ -24,5 +27,6 @@ namespace OpenInVsCode
     internal sealed partial class PackageIds
     {
         public const int OpenInVs = 0x0100;
+        public const int OpenCurrentInVs = 0x0101;
     }
 }
