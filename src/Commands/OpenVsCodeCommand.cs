@@ -254,7 +254,7 @@ namespace OpenInVsCode
             {
                 if (path.ToLower().Contains("code"))
                 {
-                    var temp = Path.Combine(path.Substring(0, path.IndexOf(parentDir)),
+                    var temp = Path.Combine(path.Substring(0, path.IndexOf(parentDir, StringComparison.InvariantCultureIgnoreCase)),
                         parentDir, "code.exe");
                     if (File.Exists(temp))
                     {
