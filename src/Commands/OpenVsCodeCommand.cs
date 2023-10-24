@@ -62,13 +62,18 @@ namespace OpenInVsCode
                     if (!string.IsNullOrEmpty(path))
                     {
                         int line = 0;
+                        int column = 0;
 
                         if (activeDocument.Selection is TextSelection selection)
                         {
                             line = selection.ActivePoint.Line;
+                            // note:
+                            // LineCharOffset not DisplayColumn
+                            // as it described `code -h`: -g --goto <file:line[:character]>
+                            column = selection.ActivePoint.LineCharOffset;
                         }
 
-                        OpenVsCode(path, line);
+                        OpenVsCode(path, line, column);
                     }
                     else
                     {
@@ -98,13 +103,15 @@ namespace OpenInVsCode
                 if (!string.IsNullOrEmpty(path))
                 {
                     int line = 0;
+                    int column = 0;
 
                     if (dte.ActiveDocument?.Selection is TextSelection selection)
                     {
                         line = selection.ActivePoint.Line;
+                        column = selection.ActivePoint.LineCharOffset;
                     }
 
-                    OpenVsCode(path, line);
+                    OpenVsCode(path, line, column);
                 }
                 else
                 {
@@ -117,12 +124,18 @@ namespace OpenInVsCode
             }
         }
 
-        private void OpenVsCode(string path, int line = 0)
+        private void OpenVsCode(string path, int line = 0, int column = 0)
         {
             EnsurePathExist();
             bool isDirectory = Directory.Exists(path);
 
-            var args = isDirectory ? "." : line > 0 ? $"-g {path}:{line}" : $"{path}";
+            var args = isDirectory
+                ? "."
+                : line > 0
+                    ? column > 0
+                        ? $"-g {path}:{line}:{column}"
+                        : $"-g {path}:{line}"
+                    : $"{path}";
             if (!string.IsNullOrEmpty(_options.CommandLineArguments))
             {
                 args = $"{args} {_options.CommandLineArguments}";
@@ -156,7 +169,7 @@ namespace OpenInVsCode
             if (!string.IsNullOrEmpty(VsCodeDetect.InRegistry()))
             {
                 SaveOptions(_options, VsCodeDetect.InRegistry());
-            } 
+            }
             else if (!string.IsNullOrEmpty(VsCodeDetect.InEnvVarPath()))
             {
                 SaveOptions(_options, VsCodeDetect.InEnvVarPath());
@@ -225,7 +238,7 @@ namespace OpenInVsCode
         internal static string InLocalAppData()
         {
             var localAppData = Environment.GetEnvironmentVariable("LOCALAPPDATA");
-            
+
             var codePartDir = @"Programs\Microsoft VS Code";
             var codeDir = Path.Combine(localAppData, codePartDir);
             var drives = DriveInfo.GetDrives();
