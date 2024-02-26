@@ -133,9 +133,9 @@ namespace OpenInVsCode
                 ? "."
                 : line > 0
                     ? column > 0
-                        ? $"-g {path}:{line}:{column}"
-                        : $"-g {path}:{line}"
-                    : $"{path}";
+                        ? $"-g \"{path}:{line}:{column}\""
+                        : $"-g \"{path}:{line}\""
+                    : $"\"{path}\"";
             if (!string.IsNullOrEmpty(_options.CommandLineArguments))
             {
                 args = $"{args} {_options.CommandLineArguments}";
