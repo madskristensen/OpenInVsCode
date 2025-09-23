@@ -127,15 +127,21 @@ namespace OpenInVsCode
         private void OpenVsCode(string path, int line = 0, int column = 0)
         {
             EnsurePathExist();
-            bool isDirectory = Directory.Exists(path);
+            
+            // Check if path contains multiple files (space-separated quoted paths)
+            bool isMultipleFiles = path.Contains("\" \"");
+            bool isDirectory = !isMultipleFiles && Directory.Exists(path);
 
-            var args = isDirectory
-                ? "."
-                : line > 0
-                    ? column > 0
-                        ? $"-g \"{path}:{line}:{column}\""
-                        : $"-g \"{path}:{line}\""
-                    : $"\"{path}\"";
+            var args = isMultipleFiles
+                ? path  // Multiple files are already properly quoted
+                : isDirectory
+                    ? "."
+                    : line > 0
+                        ? column > 0
+                            ? $"-g \"{path}:{line}:{column}\""
+                            : $"-g \"{path}:{line}\""
+                        : $"\"{path}\"";
+            
             if (!string.IsNullOrEmpty(_options.CommandLineArguments))
             {
                 args = $"{args} {_options.CommandLineArguments}";

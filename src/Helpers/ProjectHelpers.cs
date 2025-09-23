@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
@@ -24,20 +25,20 @@ namespace OpenInVsCode
                 Project proj = selItem.Object as Project;
 
                 if (proj != null)
-                    return openSolutionProjectAsRegularFile ? $"\"{proj.FileName}\"" : proj.GetRootFolder();
+                    return openSolutionProjectAsRegularFile ? proj.FileName : proj.GetRootFolder();
 
                 Solution sol = selItem.Object as Solution;
 
                 if (sol != null)
-                    return openSolutionProjectAsRegularFile ? $"\"{sol.FullName}\"" : Path.GetDirectoryName(sol.FileName);
+                    return openSolutionProjectAsRegularFile ? sol.FullName : Path.GetDirectoryName(sol.FileName);
             }
 
-            return files.Count > 0 ? String.Join(" ", files) : null;
+            return files.Count > 0 ? String.Join(" ", files.Select(f => $"\"{f}\"")) : null;
         }
 
         public static string GetFilePath(this ProjectItem item)
         {
-            return $"\"{item.FileNames[1]}\""; // Indexing starts from 1
+            return item.FileNames[1]; // Indexing starts from 1
         }
 
         public static string GetRootFolder(this Project project)
